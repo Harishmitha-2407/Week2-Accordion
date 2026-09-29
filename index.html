@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- Week 2: Reusable, accessible accordion component demo page. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accessible Accordion Component</title>
+  <link rel="stylesheet" href="css/accordion.css">
+  <!-- Class "no-js" is swapped for "js" by the inline script: this is the fallback hook. -->
+  <script>document.documentElement.className = 'js';</script>
+  <script src="js/accordion.js" defer></script>
+  <script src="js/demo.js" defer></script>
+</head>
+<body>
+  <main class="page">
+    <h1>Frequently Asked Questions</h1>
+    <p class="intro">Click a heading, or use <kbd>Tab</kbd>, <kbd>Enter</kbd>/<kbd>Space</kbd>, <kbd>&uarr;</kbd>/<kbd>&darr;</kbd>, <kbd>Home</kbd> and <kbd>End</kbd>.</p>
+
+    <div class="toolbar">
+      <button type="button" id="expand-all" class="tool-btn">Expand all</button>
+      <button type="button" id="collapse-all" class="tool-btn">Collapse all</button>
+    </div>
+
+    <!-- data-accordion enables the component. data-multiple lets several panels be open at once. -->
+    <div class="accordion" data-accordion data-multiple>
+      <h2 class="accordion__heading"><button class="accordion__trigger" type="button">What is an accordion?</button></h2>
+      <div class="accordion__panel"><p>An accordion is a vertically stacked set of headings that each reveal or hide a section of content. It saves space and lets users scan a long page quickly.</p></div>
+
+      <h2 class="accordion__heading"><button class="accordion__trigger" type="button">Is it keyboard accessible?</button></h2>
+      <div class="accordion__panel"><p>Yes. Every trigger is a real <code>&lt;button&gt;</code>, so it is focusable by default. Arrow keys move between headings, and Home / End jump to the first / last one.</p></div>
+
+      <h2 class="accordion__heading"><button class="accordion__trigger" type="button">What happens without JavaScript?</button></h2>
+      <div class="accordion__panel"><p>All panels stay visible as plain content. The collapsing behaviour only applies when the <code>js</code> class is present on the root element, so nobody is locked out of the information.</p></div>
+
+      <h2 class="accordion__heading"><button class="accordion__trigger" type="button">Can I reuse it?</button></h2>
+      <div class="accordion__panel"><p>Add the <code>data-accordion</code> attribute to any container and the script initialises it automatically. You can also call <code>new Accordion(element, options)</code> directly.</p></div>
+    </div>
+
+    <h2 class="second-title">Single-open variant</h2>
+    <div class="accordion" data-accordion>
+      <h3 class="accordion__heading"><button class="accordion__trigger" type="button">Only one open at a time</button></h3>
+      <div class="accordion__panel"><p>Without <code>data-multiple</code>, opening this panel closes the others.</p></div>
+      <h3 class="accordion__heading"><button class="accordion__trigger" type="button">Second item</button></h3>
+      <div class="accordion__panel"><p>Try opening this one and watch the previous one close.</p></div>
+    </div>
+  </main>
+</body>
+</html>

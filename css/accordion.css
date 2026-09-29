@@ -1,0 +1,43 @@
+/* Week 2 - Accordion styles. States: default, hover, focus-visible, expanded. */
+:root { --ink: #1b1f3b; --line: #cfd3ec; --brand: #3730a3; --bg: #f6f7ff; }
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, "Segoe UI", Roboto, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; }
+.page { width: min(720px, 100% - 2rem); margin: 2rem auto; }
+h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+.second-title { margin-top: 2.5rem; font-size: 1.3rem; }
+.intro { color: #4a5078; }
+kbd { background: #fff; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 .35em; font-size: .85em; }
+code { background: #e8eaff; padding: 0 .3em; border-radius: 4px; }
+
+.toolbar { display: flex; gap: .5rem; margin-bottom: 1rem; }
+.tool-btn { padding: .5rem 1rem; border-radius: 8px; border: 2px solid var(--brand); background: #fff; color: var(--brand); font-weight: 600; cursor: pointer; }
+.tool-btn:hover { background: var(--brand); color: #fff; }
+
+/* ---- Component ---- */
+.accordion { border: 1px solid var(--line); border-radius: 12px; background: #fff; overflow: hidden; }
+.accordion__heading { margin: 0; font-size: 1rem; border-top: 1px solid var(--line); }
+.accordion__heading:first-child { border-top: 0; }
+.accordion__trigger { width: 100%; text-align: left; padding: 1rem 3rem 1rem 1.25rem; font: inherit; font-weight: 600; color: var(--ink); background: #fff; border: 0; cursor: pointer; position: relative; }
+.accordion__trigger:hover { background: #f0f1ff; }
+.accordion__trigger:focus-visible { outline: 3px solid #d946ef; outline-offset: -3px; }
+/* Chevron drawn with CSS so it needs no image */
+.accordion__trigger::after { content: ""; position: absolute; right: 1.25rem; top: 50%; width: .6rem; height: .6rem; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-70%) rotate(45deg); transition: transform .25s; }
+.accordion__trigger[aria-expanded="true"] { color: var(--brand); background: #f0f1ff; }
+.accordion__trigger[aria-expanded="true"]::after { transform: translateY(-30%) rotate(-135deg); }
+
+.accordion__panel { padding: 0 1.25rem; }
+.accordion__panel p { margin: 0 0 1rem; }
+
+/* Enhanced behaviour ONLY when JS is running (fallback = everything visible) */
+.js .accordion__trigger::after { display: block; }
+html:not(.js) .accordion__trigger::after { display: none; }
+.js .accordion__panel { height: 0; overflow: hidden; transition: height .3s ease; padding-top: 0; }
+.js .accordion__panel[data-open="true"] { /* height is set inline by JS for smooth animation */ }
+.js .accordion__panel[hidden] { display: none; }
+
+/* Users who ask for reduced motion get instant toggles */
+@media (prefers-reduced-motion: reduce) {
+  .accordion__panel, .accordion__trigger::after { transition: none; }
+}
+/* Windows High Contrast / forced colors */
+@media (forced-colors: active) { .accordion__trigger:focus-visible { outline: 3px solid Highlight; } }
